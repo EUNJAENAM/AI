@@ -1,6 +1,6 @@
 ## Numpy - n차원 배열 객체, 행렬연산과 비슷한 연산
 
-###numpy 패키지를 np라는 별칭으로 불러오기
+### numpy 패키지를 np라는 별칭으로 불러오기
 패키지 버전 확인하기
 
 ```python
@@ -12,7 +12,7 @@ print(np.__version__)
 arr = np.array([1,2,3,4], dtype=int)
 arr
 ```
-###type 확인
+### type 확인
 ```python
 type(arr)
 ```
@@ -101,7 +101,7 @@ myTrueFalse = [True, False, True, False, True, False, True]
 arr[myTrueFalse]
 ```
 
-###조건 연산자를 활용하여 필터 생성
+### 조건 연산자를 활용하여 필터 생성
 ```python
 # result에는 boolean index배열이 저장된다.
 result = arr2d > 2
