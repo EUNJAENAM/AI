@@ -105,3 +105,95 @@ df.sort_values(by=['키', '브랜드평판지수'])
 df.sort_values(by=['키', '브랜드평판지수'], ascending=False)
 ```
 
+```python
+# 특정 컬럼만 불러오기
+df['혈액형']
+```
+
+### 범위선택
+```python
+# 데이터프레임의 index중 행만 지정
+# 처음 행부터 3행미만
+df[:3]
+
+# loc는 ','를 기준으로 앞에 것은 행, 뒤에 것은 열
+# 처음부터 끝까지 -> 모든 행, '이름'컬럼만
+df.loc[:, '이름']
+
+# 모든 행, 열을 리스트로 지정했다는 의미는 여러 컬럼명을 넣기 위해
+df.loc[:, ['이름', '생년월일']]
+
+# loc는 3행부터 8행이하 
+df.loc[3:8, ['이름', '생년월일']]
+
+# 2행~5행, '이름' 컬럼 ~ '생년월일' 컬럼까지
+df.loc[2:5, '이름':'생년월일']
+
+
+# iloc도 ','를 기준으로 행과 열
+# iloc는 열을 지정할때 숫자로 표현
+df.iloc[:, [0, 2]]
+```
+
+### Boolean Indexing -조건을 활용한 색인
+```python
+# 검색조건
+result = df['키'] > 180
+result
+
+# 검색조건
+df['키']>180
+
+# 검색조건에 해당하는 데이터의 행만 선택
+df[df['키']>180]
+
+Boolean Index 로 받은 Index 를 활용해서 True인 값만 색인해 낼 수 있습니다.
+df[] 꺾쇠로 감싸주고, 그안에 Boolean Index를 넣어주시면 됩니다.
+
+df[ df['키'] < 170]
+
+df[df['그룹'].isnull()]
+
+df[ df['키'] > 180 ]['이름']
+
+#주의할 것은 '이름','키'를 2차원 리스트형태로 사용
+df[ df['키'] > 180 ][['이름', '키']]
+
+df.loc[ df['키'] > 180, '이름': '성별']
+
+df.loc[ df['키'] > 180, ['이름', '키']]
+```
+### isin을 활용한 색인
+isin을 활용한 색인은 내가 조건을 걸고자 하는 값이 내가 정의한 list에 있을 때만 색인하려는 경우에 사용합니다.
+```python
+my_condition = ['플레디스', 'SM']
+# 검색조건 -> 소속사중에 플레디스 or SM이 있는지
+df['소속사'].isin(my_condition)
+
+df.loc[ df['소속사'].isin(my_condition) ]
+
+df.loc[ df['소속사'].isin(my_condition),'이름' ]
+
+df.loc[ df['소속사'].isin(my_condition), '소속사' ]
+```
+
+### 결측값 알아보기
+NaN 값에 대하여
+Null 값은 비어있는 값, 고~급 언어로 결측값입니다.
+pandas 에서는 NaN => Not a Number 로 표기 된 것을 확인해 볼 수 있습니다.
+
+```python
+
+#결측치 확인
+df.isna()
+
+# series에서 null값을 확인
+df['그룹'].isnull()
+
+#NaN이 아닌 값 색출
+df['그룹'][df['그룹'].notnull()]
+
+df.loc[ df['그룹'].notnull(), ['키', '혈액형'] ]
+```
+
+
